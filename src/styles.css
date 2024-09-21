@@ -1,0 +1,39 @@
+:root {
+  --men-background-color: #b3cde0;
+  --women-background-color: #fbb4ae;
+  --unavailable-background-color: #d3d3d3;
+}
+
+.men-section {
+  background-color: var(--men-background-color);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.women-section {
+  background-color: var(--women-background-color);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.unavailable-section {
+  background-color: var(--unavailable-background-color);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
