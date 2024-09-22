@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div :class="pageClass" id="app">
     <Product
       :product="product"
       :index="index"
@@ -21,6 +21,17 @@ export default {
   components: {
     Product,
   },
+  computed: {
+    pageClass() {
+      if (this.product && this.product.category === "men's clothing") {
+        return "men-section";
+      } else if (this.product && this.product.category === "women's clothing") {
+        return "women-section";
+      } else {
+        return "unavailable-section";
+      }
+    },
+  },
   methods: {
     async fetchNextProduct() {
       try {
@@ -29,6 +40,7 @@ export default {
         );
         const product = await response.json();
 
+        // Ensure that valid products are set
         if (
           product.category === "men's clothing" ||
           product.category === "women's clothing"
@@ -37,6 +49,8 @@ export default {
         } else {
           this.product = null;
         }
+
+        // Update index for the next product
         this.index = this.index >= 20 ? 1 : this.index + 1;
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -44,26 +58,10 @@ export default {
     },
   },
   created() {
-    this.fetchNextProduct();
+    this.fetchNextProduct(); // Fetch the first product when the component is created
   },
 };
 </script>
 
-<style>
-#app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-}
-
-:root {
-  --men-bg: #d6e6ff;
-  --women-bg: #fde2ff;
-  --unavailable-bg: #dcdcdc;
-  --primary-color: #720060;
-  --secondary-color: #002772;
-  --price-color: #02939e;
-}
-</style>
+<!-- External CSS file -->
+<style src="./assets/style/styles.css"></style>
