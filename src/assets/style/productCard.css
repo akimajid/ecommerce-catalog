@@ -11,7 +11,6 @@
   min-width: 300px;
   min-height: 500px;
   flex-wrap: wrap;
-  margin: 20px auto;
 }
 
 .product-image {
@@ -30,6 +29,10 @@
   padding-right: 98px;
 }
 
+.product-title {
+  margin-bottom: 15px;
+}
+
 .product-description {
   font-size: 20px;
   color: #1e1e1e;
@@ -42,14 +45,57 @@
   font-weight: 600;
 }
 
+.men-section .product-title {
+  color: #002772;
+}
+
+.men-section .product-price {
+  color: #002772;
+}
+
+.women-section .product-title {
+  color: #720060;
+}
+
+.women-section .product-price {
+  color: #720060;
+}
+
+.category-rating {
+  display: flex;
+  font-size: 18px;
+  align-items: center;
+  justify-content: space-between;
+  color: #3f3f3f;
+}
+
 .rating {
   display: flex;
   align-items: center;
   margin: 10px 0;
 }
 
-.rating .star {
-  font-size: 24px;
+.rating-number {
+  margin-right: 10px;
+}
+
+.rating .circle {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background-color: #ccc;
+  border: 2px solid #ccc;
+}
+
+.men-section .rating .filled {
+  background-color: #002772;
+  border-color: #002772;
+}
+
+.women-section .rating .filled {
+  background-color: #720060;
+  border-color: #720060;
 }
 
 .rating-number {
@@ -208,8 +254,9 @@
     font-size: 20px;
   }
 
-  .rating .star {
-    font-size: 20px;
+  .rating .circle {
+    width: 16px;
+    height: 16px;
   }
 
   .btn {

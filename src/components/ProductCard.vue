@@ -4,14 +4,16 @@
       <img :src="product.image" alt="Product Image" class="product-image" />
       <div class="product-info">
         <h2 class="product-title">{{ product.title }}</h2>
-        <div class="rating">
-          <span
-            v-for="n in 5"
-            :key="n"
-            :class="['star', { filled: n <= product.rating }]"
-            >★</span
-          >
-          <span class="rating-number">{{ product.rating }}/5</span>
+        <div class="category-rating">
+          <span>{{ product.category }}</span>
+          <span class="rating">
+            <span class="rating-number">{{ product.rating.rate }}/5</span>
+            <span
+              v-for="n in 5"
+              :key="n"
+              :class="['circle', { filled: n <= product.rating.rate }]"
+            ></span>
+          </span>
         </div>
         <hr class="divider" />
         <p class="product-description">{{ product.description }}</p>
