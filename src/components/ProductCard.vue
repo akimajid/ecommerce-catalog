@@ -45,11 +45,7 @@
 export default {
   props: {
     product: Object,
-  },
-  data() {
-    return {
-      loading: false,
-    };
+    loading: Boolean,
   },
   computed: {
     sectionClass() {
@@ -67,11 +63,7 @@ export default {
       alert("Product purchased!");
     },
     handleNextProduct() {
-      this.loading = true;
-      setTimeout(() => {
-        this.$emit("fetchNextProduct");
-        this.loading = false;
-      }, 500);
+      this.$emit("fetchNextProduct");
     },
   },
 };

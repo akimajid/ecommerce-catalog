@@ -2,8 +2,8 @@
   <div :class="pageClass" id="app">
     <Product
       :product="product"
-      :index="index"
       @fetchNextProduct="fetchNextProduct"
+      :loading="loading"
     />
   </div>
 </template>
@@ -16,6 +16,7 @@ export default {
     return {
       index: 1,
       product: null,
+      loading: false,
     };
   },
   components: {
@@ -34,13 +35,13 @@ export default {
   },
   methods: {
     async fetchNextProduct() {
+      this.loading = true;
       try {
         const response = await fetch(
           `https://fakestoreapi.com/products/${this.index}`
         );
         const product = await response.json();
 
-        // Ensure that valid products are set
         if (
           product.category === "men's clothing" ||
           product.category === "women's clothing"
@@ -50,15 +51,16 @@ export default {
           this.product = null;
         }
 
-        // Update index for the next product
         this.index = this.index >= 20 ? 1 : this.index + 1;
       } catch (error) {
         console.error("Error fetching product:", error);
+      } finally {
+        this.loading = false;
       }
     },
   },
   created() {
-    this.fetchNextProduct(); // Fetch the first product when the component is created
+    this.fetchNextProduct();
   },
 };
 </script>
