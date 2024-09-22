@@ -1,29 +1,64 @@
 <template>
-  <div :class="sectionClass">
-    <h2>{{ product.title }}</h2>
-    <img :src="product.image" alt="Product Image" />
-    <p>{{ product.description }}</p>
-    <p><strong>Category:</strong> {{ product.category }}</p>
-    <p><strong>Price:</strong> ${{ product.price }}</p>
-  </div>
+  <section :class="sectionClass">
+    <div v-if="product" class="product-card">
+      <img :src="product.image" alt="Product Image" class="product-image" />
+      <div class="product-info">
+        <h2 class="product-title">{{ product.title }}</h2>
+        <div class="rating">
+          <span
+            v-for="n in 5"
+            :key="n"
+            :class="['star', { filled: n <= product.rating }]"
+            >★</span
+          >
+          <span class="rating-number">{{ product.rating }}/5</span>
+        </div>
+        <hr class="divider" />
+        <p class="product-description">{{ product.description }}</p>
+        <hr class="divider" />
+        <p class="product-price">${{ product.price }}</p>
+        <div class="button-group">
+          <button class="btn buy-now" @click="buyNow">Buy now</button>
+          <button class="btn next-product" @click="fetchNextProduct">
+            Next product
+          </button>
+        </div>
+      </div>
+    </div>
+    <div v-else class="unavailable-product">
+      <p>This product is unavailable to show</p>
+      <button class="btn next-product" @click="fetchNextProduct">
+        Next product
+      </button>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
-  name: "ProductCard",
   props: {
     product: Object,
   },
   computed: {
     sectionClass() {
-      if (this.product.category === "men's clothing") {
+      if (this.product && this.product.category === "men's clothing") {
         return "men-section";
-      } else if (this.product.category === "women's clothing") {
+      } else if (this.product && this.product.category === "women's clothing") {
         return "women-section";
       } else {
         return "unavailable-section";
       }
     },
   },
+  methods: {
+    buyNow() {
+      alert("Product purchased!");
+    },
+    fetchNextProduct() {
+      this.$emit("fetchNextProduct");
+    },
+  },
 };
 </script>
+
+<style scoped src="../assets/style/productCard.css"></style>

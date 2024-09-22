@@ -1,53 +1,69 @@
 <template>
   <div id="app">
-    <h1>Product Viewer</h1>
-    <ProductCard 
-      v-if="product"
+    <Product
       :product="product"
+      :index="index"
+      @fetchNextProduct="fetchNextProduct"
     />
-    <button @click="nextProduct">Next Product</button>
   </div>
 </template>
 
 <script>
-import ProductCard from './components/ProductCard.vue';
-import axios from 'axios';
+import Product from "./components/ProductCard.vue";
 
 export default {
-  name: 'App',
-  components: {
-    ProductCard
-  },
   data() {
     return {
+      index: 1,
       product: null,
-      index: 1
     };
   },
-  methods: {
-    fetchProduct() {
-      axios.get(`https://fakestoreapi.com/products/${this.index}`)
-        .then(response => {
-          const product = response.data;
-          if (product.category === "men's clothing" || product.category === "women's clothing") {
-            this.product = product;  // Simpan produk jika kategori sesuai
-          } else {
-            this.product = null;  // Tidak simpan produk lain
-          }
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
-    nextProduct() {
-      this.index = this.index < 20 ? this.index + 1 : 1;  // Reset ke 1 jika index melebihi 20
-      this.fetchProduct();
-    }
+  components: {
+    Product,
   },
-  mounted() {
-    this.fetchProduct();  // Fetch produk pertama kali
-  }
+  methods: {
+    async fetchNextProduct() {
+      try {
+        const response = await fetch(
+          `https://fakestoreapi.com/products/${this.index}`
+        );
+        const product = await response.json();
+
+        if (
+          product.category === "men's clothing" ||
+          product.category === "women's clothing"
+        ) {
+          this.product = product;
+        } else {
+          this.product = null;
+        }
+        this.index = this.index >= 20 ? 1 : this.index + 1;
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+    },
+  },
+  created() {
+    this.fetchNextProduct();
+  },
 };
 </script>
 
-<style src="./styles.css"></style>
+<style>
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+:root {
+  --men-bg: #d6e6ff;
+  --women-bg: #fde2ff;
+  --unavailable-bg: #dcdcdc;
+  --primary-color: #720060;
+  --secondary-color: #002772;
+  --price-color: #02939e;
+}
+</style>
