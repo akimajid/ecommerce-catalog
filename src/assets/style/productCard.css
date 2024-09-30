@@ -168,15 +168,14 @@
 
 .unavailable-product {
   background-image: url("../sad-face.png");
+  background-color: white;
   background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
-  /* padding: 30px; */
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   min-width: 1050px;
-  /* margin: 20px auto; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -195,7 +194,6 @@
 
 .unavailable-section {
   background-color: #f3f3f3;
-  /* padding: 20px; */
   text-align: center;
   font-size: 18px;
   color: black;
@@ -252,7 +250,6 @@
     transform: rotate(360deg);
   }
 }
-
 
 @media (max-width: 1024px) {
   .unavailable-product {
